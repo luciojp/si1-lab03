@@ -1,0 +1,251 @@
+@(title: String)(listAnuncio: List[Anuncio])(contador: Integer)
+<!DOCTYPE html>
+<html lang="pt-br">
+   <head>
+      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+      <meta charset="utf-8">
+      <title>@title</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="author" content="Antonio Lúcio">
+      <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.css")">
+      <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap-responsive.css")">
+      <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/multiple-select.css")">
+      <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/highslide.css")">
+      <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+      <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <![endif]-->
+      <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("img/favicon.ico")">
+      <script src="@routes.Assets.at("javascripts/highslide-with-html.js")"></script>
+      <script type="text/javascript">
+         hs.graphicsDir = '@routes.Assets.at("img/graphics/")';
+         hs.outlineType = 'rounded-white';
+      </script>
+      <style type="text/css">
+         body {
+	         padding: 0;
+         }
+         /* Custom container */
+         .container-narrow {
+         margin: 0 auto;
+         max-width: 750px;
+         }
+         .container-narrow > hr {
+         margin: 30px 0;
+         }
+         /* Main marketing message and sign up button */
+         .jumbotron {
+         margin: 60px 0;
+         text-align: center;
+         }
+         .jumbotron h1 {
+         font-size: 72px;
+         line-height: 1;
+         }
+         .jumbotron .btn {
+         font-size: 21px;
+         padding: 14px 24px;
+         }
+         /* Supporting marketing content */
+         .marketing {
+         margin: 30px 0;
+         }
+         #navlist li{
+         display: inline;
+         list-style-type: none;
+         padding-right: 5px;
+         }
+         
+         #wrapper {
+         	display: block;
+         	float: left;
+         	width: 70%;
+         	height: auto;
+         }
+         
+         .left-sidebar {
+         	background: #f3f3f3;
+         	display: block;
+         	float: left;
+         	width: 400px;
+         	height: 1000px;
+         	margin: 0;
+         	padding-top: 40px;
+         	paddind-left: 10px;
+         	box-shadow: 0 1px 1px #777;
+         }
+         
+         .container-narrow {
+         	margin: 0 auto;
+         }
+         
+         .span4, .span10, .span12 {
+         	margin-left: 25%;
+         	height: 120px;
+         }
+         
+         .span7 {
+         	font-family: andalus;
+         	text-align: center;
+         }
+         
+         .span8 > h4 {
+         	color: #3366FF;
+         	font-family> arial;
+         	font-size: 14px;
+         }
+         
+         .row-fluid .span12 {
+		    width: 100%;
+		    margin-left: 65px;
+		 }
+
+         .search {
+         	height: 50px;
+         }
+         
+         .button {
+            height: 70px;
+         }
+         
+         .btnsuccess {
+         	padding: 10px 50px;
+		    color: #ffffff;
+		    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+		    background-color: #5bb75b;
+		    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#3399FF), to(#0066FF));
+		    background-image: -webkit-linear-gradient(top, #3399FF, #0066FF);
+		    background-image: -o-linear-gradient(top, #3399FF, #0066FF);
+		    background-image: linear-gradient(to bottom, #3399FF, #0066FF);
+		    background-image: -moz-linear-gradient(top, #3399FF, #0066FF);
+		    background-repeat: repeat-x;
+		    border-color: #0033CC #0033CC #0033CC;
+		    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+		    border-radius: 100px;
+		    font-weight: bold;
+         }
+         
+         .btnsuccess:hover {
+            padding: 10px 50px;
+		    color: #ffffff;
+		    font-weight: bold;
+		    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+		    background-color: #5bb75b;
+		    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#FF5050), to(#CC0000));
+		    background-image: -webkit-linear-gradient(top, #FF5050, #CC0000);
+		    background-image: -o-linear-gradient(top, #FF5050, #CC0000);
+		    background-image: linear-gradient(to bottom, #FF5050, #CC0000);
+		    background-image: -moz-linear-gradient(top, #FF5050, #CC0000);
+		    background-repeat: repeat-x;
+		    border-color: #CC0000 #CC0000 #CC0000;
+		    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+		    border-radius: 100px;
+		    text-decoration: none;
+         } 
+         
+      </style>
+   </head>
+   <body>
+   
+   	    <div class="left-sidebar">
+   	    	    <div class="span4 offset1 button">
+                  <br>
+                  <a href="@routes.Application.getListasCadastrar()" onclick="return  hs.htmlExpand(this, { 
+                     objectType: 'iframe', width: 800, height:700, 
+                     creditsPosition: 'bottom left', headingText: 'Cadastrar Anuncio', 
+                     wrapperClassName: 'titlebar' } )" class="btnsuccess"><i class="icon-plus icon-white"></i> Novo Anuncio</a>
+               </div>
+               
+
+	         <div class="well">
+	            <br/>
+	            <div class="row-fluid">
+	               <form class="form-grup"  action="@routes.Application.pesquisarAnuncio()" method="post">
+	                  <div class="span10 offset2 search">
+	                     <div class="input-append">
+	                        <input class="span9" name="valuePesquisa" id="appendedInputButton" type="text" placeholder="Ex: pianista, violinista, cantor">
+	                        <button class="btn" type="submit"><i class="icon-search"></i></button>
+	                        <br>
+	                        <br>
+	                     </div>
+	                  </div>
+	                  <div class="span12">
+	                     <label class="radio inline">
+	                     	<input type="radio"  name="pesquisa" value="PalavraChave">Palavra-Chave
+	                     </label>
+	                     <br>
+	                     <label class="radio inline">
+	                     	<input type="radio" name="pesquisa" value="Instrumento">Instrumento
+	                     </label>
+	                     <br>
+	                     <label class="radio inline">
+	                     	<input type="radio" name="pesquisa" value="Estilo">Estilo Preferido
+	                     </label>
+	                     <br>
+	                     <label class="radio inline">
+	                     	<input type="radio"  name="pesquisa" value="Em Banda">Formar Banda
+	                     </label>
+	                     <br>
+	                     <label class="radio inline">
+	                     	<input type="radio"  name="pesquisa" value="Ocasionalmente">Tocar Ocasionalmente 
+	                     </label>
+	                     <br>
+	                  </div>
+	               </form>
+	            </div>
+	         </div>
+               
+               
+              
+   	    </div>
+   	    
+   	    
+   	   <div id="wrapper">
+	      <div class="container-narrow">
+	         <br/>
+
+	         <hr>
+		         <div class="masthead">
+		            <div class="row-fluid">
+		               <div class="span7">
+		                  <h1> Meeting My Band</h1>
+		               </div>
+		            </div>
+		         </div>
+	         <hr>
+				<div class="span8 offset2">
+					<h4 class="text-success">&nbsp;&nbsp;&nbsp;&nbsp;  Anuncios Resolvidos: @contador</h4>
+				</div>
+				<br>
+	         <div class="row-fluid marketing">
+	            <div class="col-sm-6">
+	               @for(anuncio <- listAnuncio.reverse){	
+	               <div class="row">
+	                  <div class="col-xs-12">
+	                     <h2 style="color:#1E90FF">@anuncio.getTitulo()</h2>
+	                     <p style="color:black">@anuncio.getDescricao()</p>
+	                     <p class="lead"><a href="@routes.Application.detalhesAnuncio(anuncio.getId())" class="btn btn-default"><i class="icon-plus"></i> Leia Mais</a></p>
+	                     <ul id="navlist">
+	                     <li class="offset10"><a href="#">@anuncio.getData()</a></li>
+	                  </div>
+	               </div>
+	               <hr>
+	               }
+	            </div>
+	         </div>
+	         <br>
+	         <hr>
+	         <div class="footer">
+	            <p>© Antonio Lúcio 2015</p>
+	         </div>
+	      </div>
+   	   </div>
+
+      <!-- /container -->
+      <!-- Le javascript
+         ================================================== -->
+      <!-- Placed at the end of the document so the pages load faster -->
+      <script src="@routes.Assets.at("javascripts/jquery.js")"></script>
+      <script src="@routes.Assets.at("javascripts/bootstrap-alert.js")"></script>
+   </body>
+</html>

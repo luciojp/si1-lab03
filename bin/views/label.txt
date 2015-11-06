@@ -1,0 +1,16 @@
+ <label class="radio inline">
+                     <input type="radio"  name="pesquisa" value="option1">Palavra-Chave
+                     </label>
+                     <label class="radio inline">
+                     <input type="radio" name="pesquisa" value="option2">Instrumento
+                     </label>
+                     <label class="radio inline">
+                     <input type="radio" name="pesquisa" value="option3">Estilo Preferido
+                     </label>
+                     
+                     <label class="radio inline">
+                     <input type="radio"  name="pesquisa" value="option1">Formar Banda
+                     </label>
+                     <label class="radio inline">
+                     <input type="radio"  name="pesquisa" value="option1">Tocar Ocasionalmente 
+                     </label>

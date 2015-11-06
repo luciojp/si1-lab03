@@ -1,0 +1,179 @@
+@(estilosQueGosta: List[EstiloQueGosta])(estilosQueNaoGosta: List[EstiloQueNaoGosta])(instrumentos: List[Instrumento])
+<!DOCTYPE html>
+<html lang="pt-br">
+   <head>
+      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="">
+      <meta name="author" content="Wendley Paulo de França">
+      <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.css")">
+      <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap-responsive.css")">
+      <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/multiple-select.css")">
+      <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/highslide.css")">
+      <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+      <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <![endif]-->
+      <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("img/favicon.ico")">
+      <script src="@routes.Assets.at("javascripts/highslide-with-html.js")"></script>
+      <script type="text/javascript">
+         hs.graphicsDir = '@routes.Assets.at("img/graphics/")';
+         hs.outlineType = 'rounded-white';
+      </script>
+      <style type="text/css">
+         body {
+         padding-top: 5px;
+         padding-bottom: 20px;
+         }
+         /* Custom container */
+         .container-narrow {
+         margin: 0 auto;
+         max-width: 790px;
+         }
+         /* Supporting marketing content */
+         .marketing {
+         margin: 20px 0;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="container-narrow">
+         <div class="row-fluid marketing">
+            <h2>Cadastrar Anuncio</h2>
+               <div class="span12">
+                  <form class="form-horizontal" action="@routes.Application.novoAnuncio()" method="post" autocomplete="off">
+                     <fieldset>
+                        <legend><i class="icon-comment"></i> Detalhes do Anuncio</legend>
+                        <div class="control-group">
+                           <label class="control-label">Titulo :</label>
+                           <div class="controls">
+                              <input type="text" name="titulo" placeholder="Titulo da postagem" required autofocus>
+                           </div>
+                        </div>
+                        <div class="control-group">
+                           <label class="control-label">Descrição :</label>
+                           <div class="controls">
+                              <textarea rows="3" maxlength="100" name="descricao" placeholder="Descrição breve para seu anuncio" required></textarea>
+                           </div>
+                        </div>
+                        <div class="control-group">
+                           <label class="control-label">Palavra-Chave :</label>
+                           <div class="controls">
+                              <input type="password" name="palavra-chave">
+                              <span class="help-block">Insira uma palavra chave para que voce posteriormente possa remover esse anuncio.</span>
+                           </div>
+                        </div>
+                     </fieldset>
+                     <fieldset>
+                        <legend><i class="icon-user"></i> Detalhes do Anunciante</legend>
+                        <div class="control-group">
+                           <label class="control-label">Cidade : </label>
+                           <div class="controls">
+                              <input type="text" name="cidade" placeholder="Ex: Campina Grande" required>
+                           </div>
+                        </div>
+                        <div class="control-group">
+                           <label class="control-label">Bairro : </label>
+                           <div class="controls">
+                              <input type="text" name="bairro" placeholder="Ex: Alto Branco" required>
+                           </div>
+                        </div>
+                        <div class="control-group">
+                           <label class="control-label">Onde Tocar :</label>
+                           <div class="controls">
+                              <label class="radio  inline">
+                              <input type="radio" name="ondeTocar" value="Em Banda"><b>Em Banda</b> 
+                              </label>
+                              <label class="radio  inline">
+                              <input type="radio" name="ondeTocar" value="Ocasionalmente"><b>Ocasionalmente</b>
+                              </label>
+                           </div>
+                        </div>
+                     </fieldset>
+                     <fieldset>
+                        <legend><i class="icon-music"></i> Estilos e Instrumentos</legend>
+                        <div class="control-group">
+                           <label class="control-label">Instrumentos que toca :</label>
+                           <div class="controls">
+                              <select multiple="multiple" name="instrumentos" required>
+                                 @for(instrumeto <- instrumentos){
+                                 <option value="@instrumeto.getId()"> @instrumeto.getNome()</option>
+                                 }
+                              </select>
+                           </div>
+                        </div>
+                        <div class="control-group">
+                           <label class="control-label">Estilos que gosta :</label>
+                           <div class="controls">
+                              <select multiple="multiple" name="estilosQueGosta">
+                                 @for(estiloQueGosta <- estilosQueGosta){
+                                 <option value="@estiloQueGosta.getId()"> @estiloQueGosta.getNome()</option>
+                                 }
+                              </select>
+                           </div>
+                        </div>
+                        <div class="control-group">
+                           <label class="control-label">Estilos que não gosta :</label>
+                           <div class="controls">
+                              <select multiple="multiple" name="estilosQueNaoGosta">
+                                 @for(estiloQueNaoGosta <- estilosQueNaoGosta){
+                                 <option value="@estiloQueNaoGosta.getId()"> @estiloQueNaoGosta.getNome()</option>
+                                 }
+                              </select>
+                           </div>
+                        </div>
+                     </fieldset>
+                     <fieldset>
+                        <legend><i class="icon-envelope"></i> Contato</legend>
+                        <div class="control-group">
+                           <label class="control-label">Email :</label>
+                           <div class="controls">
+                              <input type="email" name="email" placeholder="exemplo&#64;exemplo.com" pattern="[a-z0-9._%+-]+&#64;[a-z0-9.-]+\.[a-z]{2,4}$" required> 
+                           </div>
+                        </div>
+                        <div class="control-group">
+                           <label class="control-label">Facebook :</label>
+                           <div class="controls">
+                              <input type="url" name="facebook" pattern="http?://.+" required> 
+                           </div>
+                        </div>
+                        <div class="control-group">
+                           <label class="control-label">Telefone :</label>
+                           <div class="controls">
+                              <input type="tel" name="telefone" placeholder="(99) 9999-9999" required>
+                           </div>
+                        </div>
+               </fieldset>
+               <fieldset>
+					<div class="control-group">
+					   <div class="controls">
+						<button type="reset" class="btn btn-danger">Limpar</button>
+						<input type="submit" class="btn btn-success" value="Cadastrar">
+					  </div>
+					</div>
+               </fieldset>
+               </form>
+            </div>
+      </div>
+      <script src="@routes.Assets.at("javascripts/jquery.js")"></script>
+      <script src="@routes.Assets.at("javascripts/bootstrap-transition.js")"></script>
+      <script src="@routes.Assets.at("javascripts/bootstrap-alert.js")"></script>
+      <script src="@routes.Assets.at("javascripts/bootstrap-modal.js")"></script>
+      <script src="@routes.Assets.at("javascripts/bootstrap-dropdown.js")"></script>
+      <script src="@routes.Assets.at("javascripts/bootstrap-scrollspy.js")"></script>
+      <script src="@routes.Assets.at("javascripts/bootstrap-tab.js")"></script>
+      <script src="@routes.Assets.at("javascripts/bootstrap-tooltip.js")"></script>
+      <script src="@routes.Assets.at("javascripts/bootstrap-popover.js")"></script>
+      <script src="@routes.Assets.at("javascripts/bootstrap-button.js")"></script>
+      <script src="@routes.Assets.at("javascripts/bootstrap-collapse.js")"></script>
+      <script src="@routes.Assets.at("javascripts/bootstrap-carousel.js")"></script>
+      <script src="@routes.Assets.at("javascripts/bootstrap-typeahead.js")"></script>
+      <script src="@routes.Assets.at("javascripts/jquery.multiple.select.js")"></script>
+      <script>
+         $("select").multipleSelect({
+             filter: true
+         });
+      </script>
+	</body>
+</html>
